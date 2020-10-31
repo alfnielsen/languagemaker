@@ -1,10 +1,14 @@
-import svelte from 'rollup-plugin-svelte';
-import resolve from '@rollup/plugin-node-resolve';
 import commonjs from '@rollup/plugin-commonjs';
+import resolve from '@rollup/plugin-node-resolve';
+import replace from '@rollup/plugin-replace';
+import typescript from '@rollup/plugin-typescript';
 import livereload from 'rollup-plugin-livereload';
+import svelte from 'rollup-plugin-svelte';
 import { terser } from 'rollup-plugin-terser';
 import sveltePreprocess from 'svelte-preprocess';
-import typescript from '@rollup/plugin-typescript';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const production = !process.env.ROLLUP_WATCH;
 
@@ -29,6 +33,11 @@ function serve() {
 	};
 }
 
+
+
+
+
+
 export default {
 	input: 'src/main.ts',
 	output: {
@@ -38,6 +47,12 @@ export default {
 		file: 'public/build/bundle.js'
 	},
 	plugins: [
+      replace({
+         FIREBASE_API_KEY: JSON.stringify(process.env.FIREBASE_API_KEY),
+         FIREBASE_APP_ID: JSON.stringify(process.env.FIREBASE_APP_ID),
+         FIREBASE_MEASUREMENT_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_ID),
+         FIREBASE_MEASUREMENT_SENDER_ID: JSON.stringify(process.env.FIREBASE_MEASUREMENT_SENDER_ID)
+      }),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
