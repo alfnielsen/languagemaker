@@ -1,6 +1,5 @@
 <script>
    import { todos, addTodo , updateTodoStatus, removeTodo } from '../stores/todos.store'
-
    // Form Text
    let text = 'some task';
 
@@ -34,4 +33,7 @@ Todos:
 
 <input bind:value={text}>
 
-<button on:click={()=>addTodo(text)}>Add Task</button>
+<button on:click={()=>{ 
+   addTodo(text)
+   text = ''
+}}>Add Task</button>
