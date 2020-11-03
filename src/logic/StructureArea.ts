@@ -3,7 +3,6 @@ import { useAreaHook } from "react-redux-area"
 import { collectionData, docData } from 'rxfire/firestore'
 import { Subscription } from "rxjs"
 import { store } from ".."
-import firebase from "firebase/app"
 
 import AppAreaBase from "../config/AppAreaBase"
 import { IStoreState } from "../config/configerStore"
@@ -68,7 +67,9 @@ const add = area.add('add')
       structure = produce(structure, structureDraft => {
          structureDraft.created = new Date().toISOString()
       })
-      db.collection(draft.path).add(structure)
+      db.collection(draft.path).add(structure).then(docRef => {
+         docRef.update({ id: docRef.id })
+      })
    })
 
 const update = area.add('update')
@@ -85,6 +86,9 @@ const remove = area.add('remove')
    .produce((draft, { structure }) => {
       // consider soft delete:
       // structure.deleted = new Date().toISOString()
+      if (structure.id === draft.current?.id) {
+         select.use(draft, { structure: undefined })
+      }
       db.collection(draft.path).doc(structure.id).delete()
    })
 
