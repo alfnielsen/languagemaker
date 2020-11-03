@@ -7,10 +7,10 @@ import "firebase/performance"
 
 // For Firebase JavaScript SDK v7.20.0 and later, `measurementId` is an optional field
 const firebaseConfig = {
-   apiKey: FIREBASE_API_KEY,
-   appId: FIREBASE_APP_ID,
-   measurementId: FIREBASE_MEASUREMENT_ID,
-   messagingSenderId: FIREBASE_MEASUREMENT_SENDER_ID,
+   apiKey: "AIzaSyAT-ojQq9bcmk0qlYdspQsazRKaI65nRc4",
+   appId: "1:630959018553:web:5f2a26ddf6ba2e0ae3f3e8",
+   measurementId: "G-LK3VN384VP",
+   messagingSenderId: "630959018553",
    authDomain: "language-maker.firebaseapp.com",
    databaseURL: "https://language-maker.firebaseio.com",
    projectId: "language-maker",
