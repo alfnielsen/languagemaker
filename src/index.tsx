@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from "react-redux";
+import { ThemeProvider } from 'styled-components'
 
 import App from './App';
+//import { configureStore } from './config/configerStore'
+import { configureStore } from './config/configureStore'
 import reportWebVitals from './reportWebVitals';
+import { defaultTheme } from './style/theme'
 
 import './global.css';
-import { ThemeProvider } from 'styled-components'
-import { defaultTheme } from './style/theme'
-import { Provider } from "react-redux";
-import { configureStore } from './config/configerStore'
 
 // TODO: Add store and theme providers
 

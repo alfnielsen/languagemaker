@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
-import { useComplexState } from '../hooks/useComplexState'
 
+import { useComplexState } from '../hooks/useComplexState'
 import { IStructure, useStructures } from '../logic/StructureArea'
 import EditStructure from './EditStructure'
 

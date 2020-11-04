@@ -19,7 +19,7 @@ const EditStructure: FC<IEditStructureProp> = () => {
             type="text" 
             value={current.name} 
             onChange={(evt)=>{
-               update(produce(current,draft=>{
+               update(produce(current, draft=>{
                   draft.name = evt.target.value
                }))
             }} 

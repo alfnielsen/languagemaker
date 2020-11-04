@@ -2,11 +2,11 @@ import firebase from "firebase/app"
 import { useAreaHook } from "react-redux-area"
 import { authState } from 'rxfire/auth'
 import { Subscription } from "rxjs"
-import { store } from ".."
 
+import { store } from ".."
 import AppAreaBase from "../config/AppAreaBase"
-import { IStoreState } from "../config/configerStore"
-import { auth, db, googleProvider } from '../config/firebase'
+import { AreaRegistration, AreaSelector } from "../config/configureStore"
+import { auth, googleProvider } from '../config/firebase'
 
 export interface IUserAreaState {
    user?: firebase.User,
@@ -69,7 +69,8 @@ const UserAreaActions = {
    signOut
 }
 
-export const useUser = () =>
-   useAreaHook(UserAreaActions, (state: IStoreState) => state.userArea)
 
-export const UserArea = area
+export const useUser = () =>
+   useAreaHook(UserAreaActions, AreaSelector(area))
+
+AreaRegistration(area)

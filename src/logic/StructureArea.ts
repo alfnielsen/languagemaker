@@ -2,10 +2,10 @@ import produce from "immer"
 import { useAreaHook } from "react-redux-area"
 import { collectionData, docData } from 'rxfire/firestore'
 import { Subscription } from "rxjs"
-import { store } from ".."
 
+import { store } from ".."
 import AppAreaBase from "../config/AppAreaBase"
-import { IStoreState } from "../config/configerStore"
+import { AreaRegistration, AreaSelector } from "../config/configureStore"
 import { db } from '../config/firebase'
 
 export interface IStructure {
@@ -122,7 +122,8 @@ const StructureAreaActions = {
    remove
 }
 
-export const useStructures = () =>
-   useAreaHook(StructureAreaActions, (state: IStoreState) => state.structureArea)
 
-export const StructureArea = area
+export const useStructures = () =>
+   useAreaHook(StructureAreaActions, AreaSelector(area))
+
+AreaRegistration(area)
