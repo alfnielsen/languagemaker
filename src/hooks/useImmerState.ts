@@ -2,7 +2,7 @@ import produce, { Draft } from "immer"
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from "react"
 
 
-export const useComplexState = <T extends any>(
+export const useImmerState = <T extends any>(
    initialValue: T,
    dontAutoUpdate: boolean = false
 ): [

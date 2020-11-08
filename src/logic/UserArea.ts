@@ -5,8 +5,8 @@ import { Subscription } from "rxjs"
 
 import { store } from ".."
 import AppAreaBase from "../config/AppAreaBase"
-import { AreaRegistration, AreaSelector } from "../config/configureStore"
 import { auth, googleProvider } from '../config/firebase'
+import { AreaRegistration, AreaSelector } from "../config/ReduxAreaStore"
 
 export interface IUserAreaState {
    user?: firebase.User,

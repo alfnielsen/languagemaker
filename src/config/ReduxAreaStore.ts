@@ -52,11 +52,10 @@ export const getAllSages = () => {
 
 
 // Normal redux store setup
-export const configureStore = () => {
+export const getBaseAreaStore = () => {
    // Combined different areas into the store root reducer
    const rootReducer = getAllRootReducers()
    const AppRootSaga = getAllSages()
-   // If there are only on area .rootSaga() can be used instead of this
 
    const sagaMiddleware = createSagaMiddleware()
    const newStore = createStore(

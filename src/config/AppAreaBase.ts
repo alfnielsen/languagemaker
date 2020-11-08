@@ -6,7 +6,6 @@ export enum ActionTracking {
    Failed = "Failed"
 }
 export interface IAppAreaBaseState {
-   loading: boolean
    trackingMap: { [actionName: string]: ActionTracking }
    errorMap: {
       [key: string]: {
@@ -18,7 +17,6 @@ export interface IAppAreaBaseState {
    }
 }
 export const initAppAreaBaseState = (): IAppAreaBaseState => ({
-   loading: false,
    trackingMap: {},
    errorMap: {}
 })
@@ -47,13 +45,11 @@ export const AppAreaBase = new AreaBase({
    baseInterceptors: {
       Request: [
          (draft, { actionName }) => {
-            draft.loading = true
             draft.trackingMap[actionName] = ActionTracking.Requested
          }
       ],
       Success: [
          (draft, { actionName }) => {
-            draft.loading = false
             draft.trackingMap[actionName] = ActionTracking.Succeeded
             if (draft.errorMap[actionName]) {
                draft.errorMap[actionName].currentCount = 0
@@ -62,7 +58,6 @@ export const AppAreaBase = new AreaBase({
       ],
       Failure: [
          (draft, { actionName }) => {
-            draft.loading = false
             draft.trackingMap[actionName] = ActionTracking.Failed
          }
       ],

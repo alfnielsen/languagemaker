@@ -1,7 +1,7 @@
 import { useAreaHook } from "react-redux-area"
 
 import AppAreaBase from "../config/AppAreaBase"
-import { AreaRegistration, AreaSelector } from "../config/configureStore"
+import { AreaRegistration, AreaSelector } from "../config/ReduxAreaStore"
 
 const area = AppAreaBase.Create("TrackTest", {
    data: [1, 2, 3]

@@ -5,16 +5,16 @@ import { ThemeProvider } from 'styled-components'
 
 import App from './App';
 //import { configureStore } from './config/configerStore'
-import { configureStore } from './config/configureStore'
+import { getBaseAreaStore } from './config/ReduxAreaStore'
 import reportWebVitals from './reportWebVitals';
 import { defaultTheme } from './style/theme'
 
-import './global.css';
+import './global.scss';
 
 // TODO: Add store and theme providers
 
 
-export const store = configureStore()
+export const store = getBaseAreaStore()
 
 ReactDOM.render(
   <React.StrictMode>

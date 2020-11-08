@@ -5,15 +5,17 @@ import { Subscription } from "rxjs"
 
 import { store } from ".."
 import AppAreaBase from "../config/AppAreaBase"
-import { AreaRegistration, AreaSelector } from "../config/configureStore"
 import { db } from '../config/firebase'
+import { AreaRegistration, AreaSelector } from "../config/ReduxAreaStore"
 
 export interface IStructure {
    id: string
    created: string
    updated: string
-   name: string,
-   props: any,
+   name: string
+   props: any
+   testCode: { name: string, code: string }[]
+   walkerSteps: any[]
    childrenIds: string[]
    children: IStructure[]
    parentId?: string
@@ -75,9 +77,22 @@ const add = area.add('add')
 const update = area.add('update')
    .action((structure: IStructure) => ({ structure }))
    .produce((draft, { structure }) => {
-      structure = produce(structure, structureDraft => {
-         structureDraft.updated = new Date().toISOString()
-      })
+      let index = draft.structures.findIndex(s => s.id === structure.id)
+      console.log("UPDATE:::", index, draft.structures[index].testCode.map(t => t))
+      if (index >= 0) {
+         draft.structures[index] = produce(structure, structureDraft => {
+            console.log("UPDATE:::1", index, structure.testCode.map(t => t))
+            structureDraft.updated = new Date().toISOString()
+         })
+         console.log("UPDATE:::2", index, draft.structures[index].testCode.map(t => t))
+
+      }
+   })
+
+
+const save = area.add('save')
+   .action((structure: IStructure) => ({ structure }))
+   .produce((draft, { structure }) => {
       db.collection(draft.path).doc(structure.id).update(structure)
    })
 
@@ -117,6 +132,7 @@ const StructureAreaActions = {
    subscribe,
    unsubscribe,
    add,
+   save,
    update,
    select,
    remove

@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import styled from 'styled-components'
 
-import { useComplexState } from '../hooks/useComplexState'
+import { useImmerState } from '../hooks/useImmerState'
 import { IStructure, useStructures } from '../logic/StructureArea'
 import EditStructure from './EditStructure'
+import TextField from './Generel/TextField'
 
 const initialNewStructure: IStructure = {
    id: '',
@@ -11,6 +12,8 @@ const initialNewStructure: IStructure = {
    updated: '',
    name: 'new',
    props: {},
+   testCode: [],
+   walkerSteps: [],
    childrenIds: [],
    children: []
 }
@@ -21,7 +24,7 @@ const StructureList: FC = () => {
       subscribe(); // subscribe
    }
 
-   const [newStructure, update, set] = useComplexState(initialNewStructure)
+   const [newStructure, update, set] = useImmerState(initialNewStructure)
 
 
    return <div>
@@ -30,6 +33,7 @@ const StructureList: FC = () => {
       <br />
       {structures.map(structure => 
          <Selected 
+            key={structure.id}
             selected={current?.id === structure.id} 
             onClick={()=>select(structure)}
          >
@@ -39,12 +43,11 @@ const StructureList: FC = () => {
       <div>
          <b>Create:</b><br/>
          name: 
-         <input 
-            type="text" 
+         <TextField 
             value={newStructure.name} 
-            onChange={(evt)=>{
+            onChange={(value)=>{
                update(draft=>{
-                  draft.name = evt.target.value
+                  draft.name = value
                })
             }} 
          />
@@ -56,7 +59,7 @@ const StructureList: FC = () => {
          >Add</button>
 
       </div>
-      {current &&       <EditStructure />}
+      {current && <EditStructure />}
    </div>
 }
 
@@ -67,6 +70,7 @@ interface ISelected {
 const Selected = styled.div<ISelected>`
    padding: 8px;
    cursor: pointer;
+   width: 160px;
    background: ${({selected})=>selected?'#ccc':'#fff'};
    &:hover {
       background: #ddd;
